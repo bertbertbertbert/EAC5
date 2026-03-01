@@ -1,0 +1,12 @@
+202405101530,Futbol,Barça-Madrid,Guanyador Local,1.85,50.00
+202405101645,Futbol,Girona-Betis,Més de 2.5 gols,2.10,20.50
+202405111000,Tenis,Nadal-Alcaraz,Guanyador Set 1 Nadal,1.55,100.00
+202405111215,Futbol,Espanyol-Eibar,Empat,3.20,10.00
+202405121400,Futbol,Man City-Arsenal,Marcador Exacte 3-2,12.00,5.25
+202405121830,Basket,Lakers-Celtics,Handicap -5.5,1.90,30.00
+202405130945,Motor,GP Montmeló,Pole Position Márquez,2.50,15.75
+202405132100,Futbol,PSG-Dortmund,Ambdós marquen,1.75,40.00
+202405141120,Tenis,Sinner-Djokovic,Més de 3.5 sets,1.80,25.00
+202405151310,Ciclisme,Tour de França,Guanyador Etapa Ayuso,4.50,5.00
+202512261019,Petanca,Vilanova-Cubelles,Guanyador Vilanova,2.0,15.0
+202512261701,Badminton,Torneig Calafell,Guanya Vilanova,2.22,20.0
