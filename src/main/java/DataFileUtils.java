@@ -47,7 +47,6 @@ public class DataFileUtils {
         if (!dataFileExists()) {
             createDataFile();
         }
-
     }
 
     /**
@@ -133,7 +132,18 @@ public class DataFileUtils {
      * @throws RuntimeException if directory deletion fails
      */
     public void deleteDataFolderIfEmpty() {
+      File dataDirectory = new File(this.dataDirectoryName);
+      
+      if(dataDirectory.exists()){
+        String[] directoryList = dataDirectory.list();
+        if(directoryList.length == 0){
+            dataDirectory.delete();
+            if(dataDirectory.exists()){
+                throw new RuntimeException("La carpeta está buïda però no s'ha pogut esborrar");
+            }
 
+        }
+      }
     }
 
     /**
@@ -142,7 +152,13 @@ public class DataFileUtils {
      * @throws RuntimeException if file deletion fails
      */
     public void deleteDataFile() {
-
+       File dataFile = new File(this.dataFileName);
+       if(dataFile.exists()){
+        dataFile.delete();
+        if(dataFile.exists()){
+            throw new RuntimeException("El ftixer existeix pero no s'ha pogut esborrar");
+        }
+       }
     }
 
     /**
