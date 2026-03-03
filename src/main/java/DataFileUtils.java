@@ -234,7 +234,22 @@ public class DataFileUtils {
      */
     public boolean insertBetIntoDataFile(String sport, String event, String betType, float odds,
             float amount) {
-        return false;
+        if (!dataFileExists()) {
+            throw new IllegalStateException("El fitxer no existeix");
+        }
+        if ((sport == null || sport.isEmpty()) || (event == null || event.isEmpty()) || (betType == null || betType.isEmpty())) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        }
+        if(odds <= 0 || amount <= ) {
+        	throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        }
+       String content = sport+","+event+","+betType+","+odds+","+","+amount;
+       if(!insertStringIntoDataFile(content)) {
+    	   throw new RuntimeException("Error escribint al fitxer", e);
+       }else {
+    	   return false;
+       }
+       
     }
 
 }
