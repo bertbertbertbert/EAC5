@@ -1,11 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Utility class for handling bet data files and their containing directories.
@@ -25,8 +19,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DataFileUtils {
 
-    String dataDirectoryName;
-    String dataFileName;
+    private String dataDirectoryName;
+    private String dataFileName;
+    private File carpeta;
+    private File fitxer;
 
     /**
      * Constructs a DataFileUtils instance with the given directory and file name.
@@ -47,6 +43,8 @@ public class DataFileUtils {
         // if any both are correct their value are given to the class variables
         this.dataDirectoryName = dataDirectoryName;
         this.dataFileName = dataFileName;
+        carpeta = new File(this.dataDirectoryName);
+        fitxer = new File(this.dataDirectoryName, this.dataFileName);
         if (!dataDirectoryExists()) {
             createDataDirectory();
         }
@@ -61,16 +59,14 @@ public class DataFileUtils {
      * @throws RuntimeException if directory creation fails
      */
     public void createDataDirectory() {
-        File dataDirectory = new File(this.dataDirectoryName);
         try {
-            if (!dataDirectory.exists()) {
-                if (!dataDirectory.mkdirs()) {
-                    throw new RuntimeException("No se pudo crear el directorio: " + dataDirectoryName);
+            if (!carpeta.exists()) {
+                if (!carpeta.mkdirs()) {
+                    throw new RuntimeException("No se pudo crear el directorio: " + carpeta);
                 }
             }
         } catch (RuntimeException re) {
-
-            System.err.println("Error interno: " + re.getMessage());
+            System.err.println("Error interno: " + re);
         }
     }
 
@@ -80,15 +76,14 @@ public class DataFileUtils {
      * @throws RuntimeException if file creation fails
      */
     public void createDataFile() {
-        File file = new File(this.dataDirectoryName, this.dataFileName);
         try {
-            if (!file.exists()) {
-                if (!file.createNewFile()) {
-                    throw new RuntimeException("No se pudo crear el archivo: " + dataFileName);
+            if (!fitxer.exists()) {
+                if (!fitxer.createNewFile()) {
+                    throw new RuntimeException("No se pudo crear el archivo: " + fitxer);
                 }
             }
         } catch (IOException | RuntimeException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e);
         }
     }
 
@@ -98,8 +93,7 @@ public class DataFileUtils {
      * @return full path of the data directory
      */
     public String getDataDirectoryPath() {
-        File path = new File(this.dataDirectoryName);
-        return path.getAbsolutePath();
+        return carpeta.getAbsolutePath();
     }
 
     /**
@@ -108,8 +102,7 @@ public class DataFileUtils {
      * @return full path of the data file
      */
     public String getDataFilePath() {
-        File filePath = new File(this.dataDirectoryName, this.dataFileName);
-        return filePath.getAbsolutePath();
+        return fitxer.getAbsolutePath();
     }
 
     /**
@@ -118,8 +111,7 @@ public class DataFileUtils {
      * @return true if the directory exists; false otherwise
      */
     public boolean dataDirectoryExists() {
-        File dataDirectory = new File(this.dataDirectoryName);
-        return dataDirectory.exists();
+        return carpeta.exists();
     }
 
     /**
@@ -128,8 +120,7 @@ public class DataFileUtils {
      * @return true if the file exists; false otherwise
      */
     public boolean dataFileExists() {
-        File file = new File(this.dataDirectoryName, this.dataFileName);
-        return file.exists();
+        return fitxer.exists();
     }
 
     /**
@@ -138,18 +129,16 @@ public class DataFileUtils {
      * @throws RuntimeException if directory deletion fails
      */
     public void deleteDataFolderIfEmpty() {
-      File dataDirectory = new File(this.dataDirectoryName);
-      
-      if(dataDirectory.exists()){
-        String[] directoryList = dataDirectory.list();
-        if(directoryList.length == 0){
-            dataDirectory.delete();
-            if(dataDirectory.exists()){
-                throw new RuntimeException("La carpeta está buïda però no s'ha pogut esborrar");
-            }
+        if (dataDirectoryExists()) {
+            String[] directoryList = carpeta.list();
+            if (directoryList.length == 0) {
+                carpeta.delete();
+                if (carpeta.exists()) {
+                    throw new RuntimeException("La carpeta está buïda però no s'ha pogut esborrar");
+                }
 
+            }
         }
-      }
     }
 
     /**
@@ -158,13 +147,12 @@ public class DataFileUtils {
      * @throws RuntimeException if file deletion fails
      */
     public void deleteDataFile() {
-       File dataFile = new File(this.dataFileName);
-       if(dataFile.exists()){
-        dataFile.delete();
-        if(dataFile.exists()){
-            throw new RuntimeException("El ftixer existeix pero no s'ha pogut esborrar");
+        if (dataFileExists()) {
+            fitxer.delete();
+            if (fitxer.exists()) {
+                throw new RuntimeException("El fitxer existeix pero no s'ha pogut esborrar");
+            }
         }
-       }
     }
 
     /**
