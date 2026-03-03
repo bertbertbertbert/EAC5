@@ -1,20 +1,24 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
  * Utility class for handling bet data files and their containing directories.
  * <p>
  * This class manages creation, deletion, and data insertion in text files that
- * store bet information.
- * It also provides methods for retrieving file contents and checking file
- * existence.
+ * store bet information. It also provides methods for retrieving file contents
+ * and checking file existence.
  * </p>
- * 
+ *
  * <p>
  * The class assumes that each bet record contains timestamp, sport, event, bet
  * type, odds, and amount.
  * </p>
- * 
+ *
  * @IOC
  */
 public class DataFileUtils {
@@ -25,14 +29,15 @@ public class DataFileUtils {
     private File fitxer;
 
     /**
-     * Constructs a DataFileUtils instance with the given directory and file name.
-     * Throws IllegalArgumentException if any of the parameters are null or empty.
+     * Constructs a DataFileUtils instance with the given directory and file
+     * name. Throws IllegalArgumentException if any of the parameters are null
+     * or empty.
      *
      * @param dataDirectoryName Name of the data folder
-     * @param dataFileName      Name of the file to read/write bet data
-     * @throws IllegalArgumentException if dataDirectoryName or dataFileName is null
-     *                                  or empty
-     * @throws RuntimeException         if directory or file creation fails
+     * @param dataFileName Name of the file to read/write bet data
+     * @throws IllegalArgumentException if dataDirectoryName or dataFileName is
+     * null or empty
+     * @throws RuntimeException if directory or file creation fails
      */
     public DataFileUtils(String dataDirectoryName, String dataFileName) {
         // checking if any of the parameters are empty or null
@@ -125,7 +130,7 @@ public class DataFileUtils {
 
     /**
      * Deletes the data directory if it exists and it's empty.
-     * 
+     *
      * @throws RuntimeException if directory deletion fails
      */
     public void deleteDataFolderIfEmpty() {
@@ -134,9 +139,11 @@ public class DataFileUtils {
             if (directoryList.length == 0) {
                 carpeta.delete();
                 if (carpeta.exists()) {
-                    throw new RuntimeException("La carpeta está buïda però no s'ha pogut esborrar");
+                    throw new RuntimeException("La carpeta està buïda però no s'ha pogut esborrar");
                 }
 
+            }else{
+                throw new RuntimeException("La carpeta no està buïda");
             }
         }
     }
@@ -160,11 +167,22 @@ public class DataFileUtils {
      *
      * @return a string containing all the content from the file
      * @throws IllegalStateException if the data file does not exist
-     * @throws RuntimeException      if an I/O error occurs while reading the file
+     * @throws RuntimeException if an I/O error occurs while reading the file
      */
     public String getInfoFromDataFileIntoString() {
-        String info = "";
-        return info;
+        if (!dataFileExists()) {
+            throw new IllegalStateException("El fitxer no existeix");
+        }
+        StringBuilder stringARetornar = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(fitxer))) {
+            String linia;
+            while ((linia = br.readLine()) != null) {
+                stringARetornar.append(linia).append("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error llegint el fitxer", e);
+        }
+        return stringARetornar.toString();
     }
 
     /**
@@ -177,30 +195,42 @@ public class DataFileUtils {
      * @param content the string content to insert (must not be null or empty)
      * @return true if the content was successfully inserted
      * @throws IllegalArgumentException if content is null or empty
-     * @throws IllegalStateException    if the data file does not exist
-     * @throws RuntimeException         if an I/O error occurs while writing to the
-     *                                  file
+     * @throws IllegalStateException if the data file does not exist
+     * @throws RuntimeException if an I/O error occurs while writing to the file
      */
     public boolean insertStringIntoDataFile(String content) {
-        return false;
+        if (content == null || content.isEmpty()) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        }
+        if (!dataFileExists()) {
+            throw new IllegalStateException("El fitxer no existeix");
+        }
+        try (BufferedWriter wr = new BufferedWriter(new FileWriter(fitxer, true))) {
+            wr.append(content);
+            wr.newLine();
+        } catch (IOException e) {
+            throw new RuntimeException("Error escribint al fitxer", e);
+        }
+        return true;
     }
 
     /**
      * Inserts a new bet record into the data file, prepending a timestamp.
      * <p>
-     * The method validates input parameters and writes the bet data in CSV format.
+     * The method validates input parameters and writes the bet data in CSV
+     * format.
      * </p>
      *
-     * @param sport   the sport name (must not be null or empty)
-     * @param event   the event name (must not be null or empty)
+     * @param sport the sport name (must not be null or empty)
+     * @param event the event name (must not be null or empty)
      * @param betType the type of bet (must not be null or empty)
-     * @param odds    the betting odds (must be positive)
-     * @param amount  the bet amount (must be positive)
+     * @param odds the betting odds (must be positive)
+     * @param amount the bet amount (must be positive)
      * @return true if the bet was successfully inserted
-     * @throws IllegalArgumentException if any parameter is null, empty, or invalid
-     * @throws IllegalStateException    if the data file does not exist
-     * @throws RuntimeException         if an I/O error occurs while writing to the
-     *                                  file
+     * @throws IllegalArgumentException if any parameter is null, empty, or
+     * invalid
+     * @throws IllegalStateException if the data file does not exist
+     * @throws RuntimeException if an I/O error occurs while writing to the file
      */
     public boolean insertBetIntoDataFile(String sport, String event, String betType, float odds,
             float amount) {
