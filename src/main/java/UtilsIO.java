@@ -262,5 +262,19 @@ public class UtilsIO {
      */
     public void showBets(String betList) {
 
+        if (betList == null || betList.isEmpty()) {
+            throw new IllegalArgumentException("betList cannot be null or empty");
+        }
+
+        System.err.println("-------------------------------------------------------------------------------------");
+        System.out.printf("%20s %20s  %20s  %20s %20s", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT");
+        System.err.println("-------------------------------------------------------------------------------------");
+
+        String[] linies = betList.split("\n");
+        for (String linea : linies) {
+            String[] arrayLinea = linea.split(",");
+            System.out.printf("%20s %20s  %20s  %20s %20s%n", arrayLinea[0], arrayLinea[1], arrayLinea[2],
+                    arrayLinea[3], arrayLinea[4]);
+        }
     }
 }
