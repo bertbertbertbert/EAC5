@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Utility class for handling bet data files and their containing directories.
@@ -64,15 +66,12 @@ public class DataFileUtils {
      * @throws RuntimeException if directory creation fails
      */
     public void createDataDirectory() {
-        try {
-            if (!carpeta.exists()) {
-                if (!carpeta.mkdirs()) {
-                    throw new RuntimeException("No se pudo crear el directorio: " + carpeta);
-                }
+        if (!carpeta.exists()) {
+            if (!carpeta.mkdirs()) {
+                throw new RuntimeException("No se pudo crear el directorio: " + carpeta);
             }
-        } catch (RuntimeException re) {
-            System.err.println("Error interno: " + re);
         }
+
     }
 
     /**
@@ -87,7 +86,7 @@ public class DataFileUtils {
                     throw new RuntimeException("No se pudo crear el archivo: " + fitxer);
                 }
             }
-        } catch (IOException | RuntimeException e) {
+        } catch (IOException e) {
             System.err.println("Error: " + e);
         }
     }
@@ -142,7 +141,7 @@ public class DataFileUtils {
                     throw new RuntimeException("La carpeta està buïda però no s'ha pogut esborrar");
                 }
 
-            }else{
+            } else {
                 throw new RuntimeException("La carpeta no està buïda");
             }
         }
@@ -240,19 +239,19 @@ public class DataFileUtils {
         if ((sport == null || sport.isEmpty()) || (event == null || event.isEmpty()) || (betType == null || betType.isEmpty())) {
             throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
         }
-        if(odds <= 0 || amount <= 0) {
-        	throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        if (odds <= 0 || amount <= 0) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
         }
 
-        
+        LocalDateTime data = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(Constants.DATE_FORMAT);
+        String content = format.format(data) + "," + sport + "," + event + "," + betType + "," + odds + "," + amount;
+        if (!insertStringIntoDataFile(content)) {
+            throw new RuntimeException("Error escribint al fitxer");
+        } else {
+            return false;
+        }
 
-       String content = sport+","+event+","+betType+","+odds+","+","+amount;
-       if(!insertStringIntoDataFile(content)) {
-    	   throw new RuntimeException("Error escribint al fitxer");
-       }else {
-    	   return false;
-       }
-       
     }
 
 }

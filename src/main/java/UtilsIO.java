@@ -1,17 +1,18 @@
+
 import java.util.Scanner;
 
 /**
  * Utility class for handling user input and output in the console.
  * <p>
  * This class provides methods for displaying messages, errors, menus, and
- * asking for various types of input such as strings, integers, and floats.
- * It also supports formatted display of bet lists.
+ * asking for various types of input such as strings, integers, and floats. It
+ * also supports formatted display of bet lists.
  * </p>
- * 
+ *
  * <p>
  * It relies on predefined constants to standardize messages and layout.
  * </p>
- * 
+ *
  * @IOC
  */
 public class UtilsIO {
@@ -19,7 +20,6 @@ public class UtilsIO {
     /**
      * Constructs a UtilsIO object and initializes the input scanner.
      */
-
     Scanner scan = new Scanner(System.in);
 
     public UtilsIO() {
@@ -27,10 +27,10 @@ public class UtilsIO {
     }
 
     /**
-     * Displays a formatted message with a header and body content.
-     * Throws IllegalArgumentException if either part is null or empty.
+     * Displays a formatted message with a header and body content. Throws
+     * IllegalArgumentException if either part is null or empty.
      *
-     * @param header   the title or heading of the message
+     * @param header the title or heading of the message
      * @param mainText the main body of the message
      * @throws IllegalArgumentException if header or mainText is null or empty
      */
@@ -41,11 +41,11 @@ public class UtilsIO {
             } else {
                 System.out.println(
                         "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + header + "\n" +
-                                "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + mainText);
+                        + "\n"
+                        + header + "\n"
+                        + "---------------------------------------------------------------------------------------"
+                        + "\n"
+                        + mainText);
             }
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
@@ -65,11 +65,11 @@ public class UtilsIO {
             } else {
                 System.err.println(
                         "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + "BET IOC!" + "\n" +
-                                "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + menuText);
+                        + "\n"
+                        + "BET IOC!" + "\n"
+                        + "---------------------------------------------------------------------------------------"
+                        + "\n"
+                        + menuText);
             }
 
         } catch (IllegalArgumentException e) {
@@ -91,11 +91,11 @@ public class UtilsIO {
             } else {
                 System.err.println(
                         "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + "ERROR" + "\n" +
-                                "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + errorText);
+                        + "\n"
+                        + "ERROR" + "\n"
+                        + "---------------------------------------------------------------------------------------"
+                        + "\n"
+                        + errorText);
             }
 
         } catch (IllegalArgumentException e) {
@@ -116,11 +116,11 @@ public class UtilsIO {
             } else {
                 System.err.println(
                         "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + "INFO" + "\n" +
-                                "---------------------------------------------------------------------------------------"
-                                + "\n"
-                                + infoText);
+                        + "\n"
+                        + "INFO" + "\n"
+                        + "---------------------------------------------------------------------------------------"
+                        + "\n"
+                        + infoText);
             }
 
         } catch (IllegalArgumentException e) {
@@ -133,7 +133,7 @@ public class UtilsIO {
      * Prompts the user for any string input and returns it.
      *
      * @param message the prompt shown to the user. If not provided, a default
-     *                prompt is used.
+     * prompt is used.
      * @return the user’s input as a string
      */
     public String askForAnyString(String message) {
@@ -145,13 +145,13 @@ public class UtilsIO {
     }
 
     /**
-     * Prompts the user for a non-empty string input.
-     * Repeats until valid input is entered.
+     * Prompts the user for a non-empty string input. Repeats until valid input
+     * is entered.
      *
-     * @param message      the prompt shown to the user. If not provided, a default
-     *                     prompt is used.
-     * @param errorMessage message shown when the input is empty. If not provided, a
-     *                     default error message is used.
+     * @param message the prompt shown to the user. If not provided, a default
+     * prompt is used.
+     * @param errorMessage message shown when the input is empty. If not
+     * provided, a default error message is used.
      * @return a non-empty string from the user
      */
     public String askForNotEmptyString(String message, String errorMessage) {
@@ -178,13 +178,13 @@ public class UtilsIO {
     }
 
     /**
-     * Prompts the user to enter an integer value.
-     * Repeats until a valid integer is entered.
+     * Prompts the user to enter an integer value. Repeats until a valid integer
+     * is entered.
      *
-     * @param message      prompt shown to the user. If not provided, a default
-     *                     prompt is used.
-     * @param errorMessage message shown when the input is invalid. If not provided,
-     *                     a default error message is used.
+     * @param message prompt shown to the user. If not provided, a default
+     * prompt is used.
+     * @param errorMessage message shown when the input is invalid. If not
+     * provided, a default error message is used.
      * @return a valid integer entered by the user
      */
     public int askForInteger(String message, String errorMessage) {
@@ -197,7 +197,7 @@ public class UtilsIO {
 
         do {
             try {// en este caso a diferencia de pedir un string, sí uso el try-catch porque sí
-                 // puede lanzar un NumberFormatException en el parseInt
+                // puede lanzar un NumberFormatException en el parseInt
                 System.out.println(message);
                 input = scan.nextLine();
                 num = Integer.parseInt(input);
@@ -214,13 +214,13 @@ public class UtilsIO {
     }
 
     /**
-     * Prompts the user to enter a floating-point value.
-     * Repeats until a valid float is entered.
+     * Prompts the user to enter a floating-point value. Repeats until a valid
+     * float is entered.
      *
-     * @param message      prompt shown to the user. If not provided, a default
-     *                     prompt is used.
-     * @param errorMessage message shown when the input is invalid. If not provided,
-     *                     a default error message is used.
+     * @param message prompt shown to the user. If not provided, a default
+     * prompt is used.
+     * @param errorMessage message shown when the input is invalid. If not
+     * provided, a default error message is used.
      * @return a valid float entered by the user
      */
     public float askForFloat(String message, String errorMessage) {
@@ -252,29 +252,27 @@ public class UtilsIO {
     }
 
     /**
-     * Displays a list of bets formatted using a predefined template.
-     * Each bet must have exactly the expected number of columns (timestamp, sport,
-     * event, betType, odds, amount).
-     * Malformed bet entries are silently skipped.
+     * Displays a list of bets formatted using a predefined template. Each bet
+     * must have exactly the expected number of columns (timestamp, sport,
+     * event, betType, odds, amount). Malformed bet entries are silently
+     * skipped.
      *
      * @param betList the raw string containing all bets separated by newline
      * @throws IllegalArgumentException if betList is null or empty
      */
     public void showBets(String betList) {
-
         if (betList == null || betList.isEmpty()) {
             throw new IllegalArgumentException("betList cannot be null or empty");
         }
 
         System.err.println("-------------------------------------------------------------------------------------");
-        System.out.printf("%20s %20s  %20s  %20s %20s", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT");
+        System.out.printf("%20s %20s  %20s  %20s %20s %20s", "DATETIME", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT");
         System.err.println("-------------------------------------------------------------------------------------");
 
         String[] linies = betList.split("\n");
         for (String linea : linies) {
             String[] arrayLinea = linea.split(",");
-            System.out.printf("%20s %20s  %20s  %20s %20s%n", arrayLinea[0], arrayLinea[1], arrayLinea[2],
-                    arrayLinea[3], arrayLinea[4]);
+            System.out.printf("%20s %20s %20s  %20s  %20s %20s%n", arrayLinea[0], arrayLinea[1], arrayLinea[2], arrayLinea[3], arrayLinea[4], arrayLinea[5]);
         }
     }
 }
