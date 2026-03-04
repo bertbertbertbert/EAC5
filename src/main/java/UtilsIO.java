@@ -115,7 +115,7 @@ public class UtilsIO {
                 throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
             } else {
                 System.err.println(
-                        "---------------------------------------------------------------------------------------"
+                        "-----------------------------------------------------------------------------------------"
                         + "\n"
                         + "INFO" + "\n"
                         + "---------------------------------------------------------------------------------------"
@@ -265,9 +265,9 @@ public class UtilsIO {
             throw new IllegalArgumentException("betList cannot be null or empty");
         }
 
-        System.err.println("-------------------------------------------------------------------------------------");
-        System.out.printf("%20s %20s  %20s  %20s %20s %20s", "DATETIME", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT");
-        System.err.println("-------------------------------------------------------------------------------------");
+        System.err.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%20s %20s  %20s  %20s %20s %20s", "DATETIME", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT\n");
+        System.err.println("------------------------------------------------------------------------------------------------------------------------------------");
 
         String[] linies = betList.split("\n");
         for (String linea : linies) {
