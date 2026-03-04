@@ -10,3 +10,4 @@
 202405151310,Ciclisme,Tour de França,Guanyador Etapa Ayuso,4.50,5.00
 202512261019,Petanca,Vilanova-Cubelles,Guanyador Vilanova,2.0,15.0
 202512261701,Badminton,Torneig Calafell,Guanya Vilanova,2.22,20.0
+202603041203,alfredo,alfredo,alfredo,12.12,12.12

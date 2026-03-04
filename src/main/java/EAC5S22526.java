@@ -50,7 +50,7 @@ public class EAC5S22526 {
             nomFitxer = Constants.DEFAULT_FILE_NAME;
         }
         
-        new DataFileUtils(nomCarpeta, nomFitxer);
+        DataFileUtils dfu = new DataFileUtils(nomCarpeta, nomFitxer);
 
         int opcio;
         do {
@@ -58,15 +58,19 @@ public class EAC5S22526 {
             opcio = io.askForInteger(Constants.MESSAGE_ASK_OPTION_VALUE, Constants.MESSAGE_NOT_VALID_OPTION);
             switch (opcio) {
                 case 1:
+                    String sport = io.askForNotEmptyString("Introdueixi el nom de l'esport", Constants.MESSAGE_ERROR_EMPTY_STRING);
+                    String esdeveniment = io.askForNotEmptyString("Introdueixi el nom de l'esdeveniment", Constants.MESSAGE_ERROR_EMPTY_STRING);
+                    String tipus = io.askForNotEmptyString("Introdueixi el tipus d'aposta", Constants.MESSAGE_ERROR_EMPTY_STRING);
+                    float quota = io.askForFloat("Introdueixi les quotes de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
+                    float importAposta = io.askForFloat("Introdueixi l'import de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
+                    dfu.insertBetIntoDataFile(sport, esdeveniment, tipus, quota, importAposta);
                     break;
                 case 2:
                     break;
                 case 3:
                     break;
-                case 4:
-                    break;
                 default:
-                    if(opcio !=0){
+                    if(opcio > 4 || opcio < 0){
                     io.showError(Constants.MESSAGE_NOT_VALID_OPTION);
                     }
             }
