@@ -66,8 +66,20 @@ public class EAC5S22526 {
                     dfu.insertBetIntoDataFile(sport, esdeveniment, tipus, quota, importAposta);
                     break;
                 case 2:
+                	String dataFileRaw = dfu.getInfoFromDataFileIntoString();
+                	io.showBets(dataFileRaw);
                     break;
                 case 3:
+                	dfu.getDataDirectoryPath();
+                	dfu.getDataFilePath();
+                	String resposta = io.askForNotEmptyString("Desitja esborrar i tornar a crear aquest arxiu? s/n" , Constants.MESSAGE_ERROR_EMPTY_STRING);
+                	if(resposta.equals("si")) {
+                		dfu.deleteDataFile();
+                		dfu.createDataFile();
+                		io.showInfo("Arxiu esborrat i creat de nou satisfactoriament");
+                	}else {
+                		io.showInfo("Cancel·lat a petició del usuari");
+                	}
                     break;
                 default:
                     if(opcio > 4 || opcio < 0){

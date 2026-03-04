@@ -97,7 +97,7 @@ public class DataFileUtils {
      * @return full path of the data directory
      */
     public String getDataDirectoryPath() {
-        return carpeta.getAbsolutePath();
+        return "Directori de dades: " + carpeta.getAbsolutePath();
     }
 
     /**
@@ -106,7 +106,7 @@ public class DataFileUtils {
      * @return full path of the data file
      */
     public String getDataFilePath() {
-        return fitxer.getAbsolutePath();
+        return "Arxiu de dades: " + fitxer.getAbsolutePath();
     }
 
     /**
