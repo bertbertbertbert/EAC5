@@ -64,21 +64,19 @@ public class EAC5S22526 {
                     String tipus = io.askForNotEmptyString("Introdueixi el tipus d'aposta", Constants.MESSAGE_ERROR_EMPTY_STRING);
                     float quota = io.askForFloat("Introdueixi les quotes de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
                     float importAposta = io.askForFloat("Introdueixi l'import de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
-                    dfu.insertBetIntoDataFile(sport, esdeveniment, tipus, quota, importAposta);
+                    enterBetData(dfu, sport, esdeveniment, tipus, quota, importAposta);
                     break;
                 case 2:
                     String dataFileRaw = dfu.getInfoFromDataFileIntoString();
-                    io.showBets(dataFileRaw);
+                    showBetsData(io, dataFileRaw);
                     break;
                 case 3:
                     System.out.println(dfu.getDataDirectoryPath());
-                    System.out.println(dfu.getDataFilePath()+"\n");
+                    System.out.println(dfu.getDataFilePath() + "\n");
 
                     String resposta = io.askForNotEmptyString("Desitja esborrar i tornar a crear aquest arxiu? s/n", Constants.MESSAGE_ERROR_EMPTY_STRING);
                     if (resposta.equals("s")) {
-                        dfu.deleteDataFile();
-                        dfu.createDataFile();
-                        io.showInfo("Arxiu esborrat i creat de nou satisfactoriament");
+                        resetDataFileIfConfirmed(dfu, io);
                     } else {
                         io.showInfo("Cancel·lat a petició del usuari");
                     }
@@ -92,4 +90,17 @@ public class EAC5S22526 {
         io.showInfo("Has sortit.");
     }
 
+    public void enterBetData(DataFileUtils dfu, String sport, String esdeveniment, String tipus, float quota, float importAposta) {
+        dfu.insertBetIntoDataFile(sport, esdeveniment, tipus, quota, importAposta);
+    }
+
+    public void showBetsData(UtilsIO io, String dataFileRaw) {
+        io.showBets(dataFileRaw);
+    }
+
+    public void resetDataFileIfConfirmed(DataFileUtils dfu, UtilsIO io) {
+        dfu.deleteDataFile();
+        dfu.createDataFile();
+        io.showInfo("Arxiu esborrat i creat de nou satisfactoriament");
+    }
 }
