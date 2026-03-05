@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -59,12 +60,8 @@ public class EAC5S22526 {
             opcio = io.askForInteger(Constants.MESSAGE_ASK_OPTION_VALUE, Constants.MESSAGE_NOT_VALID_OPTION);
             switch (opcio) {
                 case 1:
-                    String sport = io.askForNotEmptyString("Introdueixi el nom de l'esport", Constants.MESSAGE_ERROR_EMPTY_STRING);
-                    String esdeveniment = io.askForNotEmptyString("Introdueixi el nom de l'esdeveniment", Constants.MESSAGE_ERROR_EMPTY_STRING);
-                    String tipus = io.askForNotEmptyString("Introdueixi el tipus d'aposta", Constants.MESSAGE_ERROR_EMPTY_STRING);
-                    float quota = io.askForFloat("Introdueixi les quotes de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
-                    float importAposta = io.askForFloat("Introdueixi l'import de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
-                    enterBetData(dfu, sport, esdeveniment, tipus, quota, importAposta);
+                    ArrayList data = enterBetData(dfu, io);
+                    dfu.insertBetIntoDataFile((String) data.get(0), (String) data.get(1), (String) data.get(2), (float) data.get(3), (float) data.get(4));
                     break;
                 case 2:
                     String dataFileRaw = dfu.getInfoFromDataFileIntoString();
@@ -90,8 +87,19 @@ public class EAC5S22526 {
         io.showInfo("Has sortit.");
     }
 
-    public void enterBetData(DataFileUtils dfu, String sport, String esdeveniment, String tipus, float quota, float importAposta) {
-        dfu.insertBetIntoDataFile(sport, esdeveniment, tipus, quota, importAposta);
+    public ArrayList<Object> enterBetData(DataFileUtils dfu, UtilsIO io) {
+        ArrayList<Object> data = new ArrayList<>();
+        String sport = io.askForNotEmptyString("Introdueixi el nom de l'esport", Constants.MESSAGE_ERROR_EMPTY_STRING);
+        data.add(sport);
+        String esdeveniment = io.askForNotEmptyString("Introdueixi el nom de l'esdeveniment", Constants.MESSAGE_ERROR_EMPTY_STRING);
+        data.add(esdeveniment);
+        String tipus = io.askForNotEmptyString("Introdueixi el tipus d'aposta", Constants.MESSAGE_ERROR_EMPTY_STRING);
+        data.add(tipus);
+        float quota = io.askForFloat("Introdueixi les quotes de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
+        data.add(quota);
+        float importAposta = io.askForFloat("Introdueixi l'import de l'aposta", Constants.MESSAGE_ERROR_NO_FLOAT);
+        data.add(importAposta);
+        return data;
     }
 
     public void showBetsData(UtilsIO io, String dataFileRaw) {
