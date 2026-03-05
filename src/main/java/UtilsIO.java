@@ -20,10 +20,10 @@ public class UtilsIO {
     /**
      * Constructs a UtilsIO object and initializes the input scanner.
      */
-    Scanner scan = new Scanner(System.in);
+    Scanner scan;
 
     public UtilsIO() {
-
+        scan = new Scanner(System.in);
     }
 
     /**

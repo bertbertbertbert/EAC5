@@ -72,7 +72,7 @@ public class EAC5S22526 {
                     System.out.println(dfu.getDataFilePath() + "\n");
 
                     String resposta = io.askForNotEmptyString("Desitja esborrar i tornar a crear aquest arxiu? s/n", Constants.MESSAGE_ERROR_EMPTY_STRING);
-                    if (resposta.equals("s")) {
+                    if (resposta.toLowerCase().equals("s")) {
                         resetDataFileIfConfirmed(dfu, io);
                     } else {
                         io.showInfo("Cancel·lat a petició del usuari");
