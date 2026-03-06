@@ -35,7 +35,7 @@ public class UtilsIO {
      * @throws IllegalArgumentException if header or mainText is null or empty
      */
     public void showAnyMessage(String header, String mainText) {
-        try {
+    
             if (header == null || mainText == null || header.isEmpty() || mainText.isEmpty()) {
                 throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
             } else {
@@ -47,10 +47,7 @@ public class UtilsIO {
                         + "\n"
                         + mainText);
             }
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-        }
-    }
+        } 
 
     /**
      * Displays a formatted menu using a default menu header.
@@ -59,11 +56,11 @@ public class UtilsIO {
      * @throws IllegalArgumentException if menuText is null or empty
      */
     public void showMenu(String menuText) {
-        try {
+        
             if (menuText == null || menuText.isEmpty()) {
                 throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
             } else {
-                System.err.println(
+                System.out.println(
                         "---------------------------------------------------------------------------------------"
                         + "\n"
                         + "BET IOC!" + "\n"
@@ -71,10 +68,6 @@ public class UtilsIO {
                         + "\n"
                         + menuText);
             }
-
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-        }
 
     }
 
@@ -85,22 +78,20 @@ public class UtilsIO {
      * @throws IllegalArgumentException if errorText is null or empty
      */
     public void showError(String errorText) {
-        try {
+      
             if (errorText == null || errorText.isEmpty()) {
                 throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
             } else {
-                System.err.println(
+                System.out.println(
                         "---------------------------------------------------------------------------------------"
                         + "\n"
                         + "ERROR" + "\n"
                         + "---------------------------------------------------------------------------------------"
                         + "\n"
-                        + errorText);
+                        + errorText
+                        + "\n");
             }
 
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     /**
@@ -110,22 +101,20 @@ public class UtilsIO {
      * @throws IllegalArgumentException if infoText is null or empty
      */
     public void showInfo(String infoText) {
-        try {
+      
             if (infoText == null || infoText.isEmpty()) {
                 throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
             } else {
-                System.err.println(
+                System.out.println(
                         "-----------------------------------------------------------------------------------------"
                         + "\n"
                         + "INFO" + "\n"
                         + "---------------------------------------------------------------------------------------"
                         + "\n"
-                        + infoText);
+                        + infoText
+                        + "\n");
             }
 
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-        }
 
     }
 
@@ -262,17 +251,21 @@ public class UtilsIO {
      */
     public void showBets(String betList) {
         if (betList == null || betList.isEmpty()) {
-            throw new IllegalArgumentException("betList cannot be null or empty");
+            throw new IllegalArgumentException("El fitxer no pot ser null o estar buit");
         }
 
-        System.err.println("------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%20s %20s  %20s  %20s %20s %20s", "DATETIME", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT\n");
-        System.err.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-20s %-20s %-20s %-30s %-10s %-5s", "DATETIME", "SPORT", "ESDEVENIMENT", "TIPUS", "QUOTES", "IMPORT\n");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
         String[] linies = betList.split("\n");
+       
         for (String linea : linies) {
             String[] arrayLinea = linea.split(",");
-            System.out.printf("%20s %20s %20s  %20s  %20s %20s%n", arrayLinea[0], arrayLinea[1], arrayLinea[2], arrayLinea[3], arrayLinea[4], arrayLinea[5]);
-        }
+             if(arrayLinea.length == 6){
+            System.out.printf("%-20s %-20s %-20s %-30s %-10.2f %-5.2f%n", arrayLinea[0], arrayLinea[1], arrayLinea[2], arrayLinea[3], Float.parseFloat(arrayLinea[4]), Float.parseFloat(arrayLinea[5]));
+        }   
     }
+     System.out.println("");
+}
 }

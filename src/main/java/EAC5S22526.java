@@ -61,11 +61,21 @@ public class EAC5S22526 {
             switch (opcio) {
                 case 1:
                     ArrayList data = enterBetData(dfu, io);
-                    dfu.insertBetIntoDataFile((String) data.get(0), (String) data.get(1), (String) data.get(2), (float) data.get(3), (float) data.get(4));
+                    try {
+                        dfu.insertBetIntoDataFile((String) data.get(0), (String) data.get(1), (String) data.get(2), (float) data.get(3), (float) data.get(4));
+                    } catch (IllegalStateException | IllegalArgumentException e) {
+                        io.showError(e.getMessage());
+                    } catch (RuntimeException e) {
+                        io.showError(e.getMessage());
+                    }
                     break;
                 case 2:
-                    String dataFileRaw = dfu.getInfoFromDataFileIntoString();
-                    showBetsData(io, dataFileRaw);
+                    try {
+                        String dataFileRaw = dfu.getInfoFromDataFileIntoString();
+                        showBetsData(io, dataFileRaw);
+                    } catch (IllegalArgumentException  e) {
+                        io.showError(e.getMessage());
+                    }
                     break;
                 case 3:
                     System.out.println(dfu.getDataDirectoryPath());
@@ -73,7 +83,11 @@ public class EAC5S22526 {
 
                     String resposta = io.askForNotEmptyString("Desitja esborrar i tornar a crear aquest arxiu? s/n", Constants.MESSAGE_ERROR_EMPTY_STRING);
                     if (resposta.toLowerCase().equals("s")) {
-                        resetDataFileIfConfirmed(dfu, io);
+                        try {
+                            resetDataFileIfConfirmed(dfu, io);
+                        } catch (RuntimeException e) {
+                            io.showError(e.getMessage());
+                        }
                     } else {
                         io.showInfo("Cancel·lat a petició del usuari");
                     }

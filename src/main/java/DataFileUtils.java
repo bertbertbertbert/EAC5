@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -97,7 +96,7 @@ public class DataFileUtils {
      * @return full path of the data directory
      */
     public String getDataDirectoryPath() {
-        return "Directori de dades: " + carpeta.getAbsolutePath();
+        return carpeta.getAbsolutePath();
     }
 
     /**
@@ -106,7 +105,7 @@ public class DataFileUtils {
      * @return full path of the data file
      */
     public String getDataFilePath() {
-        return "Arxiu de dades: " + fitxer.getAbsolutePath();
+        return fitxer.getAbsolutePath();
     }
 
     /**
@@ -206,7 +205,7 @@ public class DataFileUtils {
         }
         try (BufferedWriter wr = new BufferedWriter(new FileWriter(fitxer, true))) {
             wr.append(content);
-            wr.newLine();
+           wr.write("\n");
         } catch (IOException e) {
             throw new RuntimeException("Error escribint al fitxer", e);
         }
