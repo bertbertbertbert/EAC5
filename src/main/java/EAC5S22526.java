@@ -73,7 +73,7 @@ public class EAC5S22526 {
                     try {
                         String dataFileRaw = dfu.getInfoFromDataFileIntoString();
                         showBetsData(io, dataFileRaw);
-                    } catch (IllegalArgumentException  e) {
+                    } catch (IllegalArgumentException | IllegalStateException e) {
                         io.showError(e.getMessage());
                     }
                     break;

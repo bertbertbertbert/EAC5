@@ -35,19 +35,19 @@ public class UtilsIO {
      * @throws IllegalArgumentException if header or mainText is null or empty
      */
     public void showAnyMessage(String header, String mainText) {
-    
-            if (header == null || mainText == null || header.isEmpty() || mainText.isEmpty()) {
-                throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
-            } else {
-                System.out.println(
-                        "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + header + "\n"
-                        + "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + mainText);
-            }
-        } 
+
+        if (header == null || mainText == null || header.isEmpty() || mainText.isEmpty()) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        } else {
+            System.out.println(
+                    "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + header + "\n"
+                    + "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + mainText);
+        }
+    }
 
     /**
      * Displays a formatted menu using a default menu header.
@@ -56,18 +56,18 @@ public class UtilsIO {
      * @throws IllegalArgumentException if menuText is null or empty
      */
     public void showMenu(String menuText) {
-        
-            if (menuText == null || menuText.isEmpty()) {
-                throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
-            } else {
-                System.out.println(
-                        "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + "BET IOC!" + "\n"
-                        + "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + menuText);
-            }
+
+        if (menuText == null || menuText.isEmpty()) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        } else {
+            System.out.println(
+                    "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + "BET IOC!" + "\n"
+                    + "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + menuText);
+        }
 
     }
 
@@ -78,19 +78,19 @@ public class UtilsIO {
      * @throws IllegalArgumentException if errorText is null or empty
      */
     public void showError(String errorText) {
-      
-            if (errorText == null || errorText.isEmpty()) {
-                throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
-            } else {
-                System.out.println(
-                        "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + "ERROR" + "\n"
-                        + "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + errorText
-                        + "\n");
-            }
+
+        if (errorText == null || errorText.isEmpty()) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        } else {
+            System.out.println(
+                    "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + "ERROR" + "\n"
+                    + "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + errorText
+                    + "\n");
+        }
 
     }
 
@@ -101,20 +101,19 @@ public class UtilsIO {
      * @throws IllegalArgumentException if infoText is null or empty
      */
     public void showInfo(String infoText) {
-      
-            if (infoText == null || infoText.isEmpty()) {
-                throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
-            } else {
-                System.out.println(
-                        "-----------------------------------------------------------------------------------------"
-                        + "\n"
-                        + "INFO" + "\n"
-                        + "---------------------------------------------------------------------------------------"
-                        + "\n"
-                        + infoText
-                        + "\n");
-            }
 
+        if (infoText == null || infoText.isEmpty()) {
+            throw new IllegalArgumentException(Constants.MESSAGE_ERROR_EMPTY_STRING);
+        } else {
+            System.out.println(
+                    "-----------------------------------------------------------------------------------------"
+                    + "\n"
+                    + "INFO" + "\n"
+                    + "---------------------------------------------------------------------------------------"
+                    + "\n"
+                    + infoText
+                    + "\n");
+        }
 
     }
 
@@ -259,13 +258,20 @@ public class UtilsIO {
         System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
 
         String[] linies = betList.split("\n");
-       
+
         for (String linea : linies) {
             String[] arrayLinea = linea.split(",");
-             if(arrayLinea.length == 6){
-            System.out.printf("%-20s %-20s %-20s %-30s %-10.2f %-5.2f%n", arrayLinea[0], arrayLinea[1], arrayLinea[2], arrayLinea[3], Float.parseFloat(arrayLinea[4]), Float.parseFloat(arrayLinea[5]));
-        }   
+            try {
+                float cuota = Float.parseFloat(arrayLinea[4]);
+                float importe = Float.parseFloat(arrayLinea[5]);
+
+                if (arrayLinea.length == 6) {
+                    System.out.printf("%-20s %-20s %-20s %-30s %-10.2f %-5.2f%n", arrayLinea[0], arrayLinea[1], arrayLinea[2], arrayLinea[3], cuota, importe);
+                }
+            } catch (Exception e) {
+                  continue;
+            }
+        }
+        System.out.println("");
     }
-     System.out.println("");
-}
 }
