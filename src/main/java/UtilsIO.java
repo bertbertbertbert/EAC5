@@ -223,7 +223,7 @@ public class UtilsIO {
             System.out.println(message);
             input = scan.nextLine();
             if (input == null || input.isEmpty()) {
-                System.err.println(errorMessage);
+               showError(errorMessage);
             } else {
                 try {
                     numDec = Float.parseFloat(input);
